@@ -1,21 +1,39 @@
 <template>
-    <div>
-                <transition name="slide" mode="out-in">
-                    <router-view></router-view>
-                </transition>
-            </div>
+<div class="container">
+  <h4>To Do List</h4>
+  
+  <hr>
+      <div>
+          <div class="row">
+          <transition name="slide" mode="out-in">
+              <app-to-do></app-to-do>
+          </transition>
+
+          <transition name="slide" mode="out-in">
+              <app-doing></app-doing>
+          </transition>
+            
+            <transition name="slide" mode="out-in">
+              <app-done></app-done>
+          </transition>
+       </div>
+      </div>
+    </div>
     
 </template>
 
 <script>
-// export default {
-//     components: {
-//
-//     },
-//     created() {
-//         this.$store.dispatch('initStocks');
-//     }
-// }
+import ToDo from './components/ToDo.vue';
+import Doing from './components/Doing';
+import Done from './components/Done.vue';
+
+export default {
+  components: {
+    appToDo: ToDo,
+    appDoing: Doing,
+    appDone: Done,
+  },
+};
 </script>
 
 <style>

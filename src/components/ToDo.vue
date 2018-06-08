@@ -1,11 +1,5 @@
 <template>
 
-<div class="container">
-  <h4>To Do List</h4>
-  
-  <hr>
-    <div class="row">
-
 <!-- TO DO column -->
        <div class="col-sm">
          <div class="card" style="width: 18rem;">
@@ -45,50 +39,7 @@
           </div>
         </div>
 
-<!-- DOING column -->
-    <div class="col-sm">
-       <div class="card" style="width: 18rem;">
-           <div class="card-body">
-             <h5 class="card-title alert-warning">DOING</h5>
-             <small class="card-text">What you are currently doing</small> 
-            </div>
- 
-        <ul class="list-group list-group-flush">
-           <li v-for="(oneList, index) in listDoing" class="list-group-item">
-                <p v-if="oneList.title">Title : {{oneList.title}}</p>
-                <p v-if="oneList.details">Details : {{oneList.details}}</p>
-                <p v-if="oneList.dueDate">Due Date : {{oneList.dueDate}}</p>
-                <p v-if="oneList.currentDate">Created on : {{currentDate}} </p>
-                <button @click="addToDoing" v-if="oneList.title" class="btn btn-warning">Doing</button>
-                <button v-if="oneList.title" class="btn btn-success">Done</button>
-                </li>
 
-        </ul>
-          <div class="card-body">
-          </div>
-        </div>
-      </div>
-
-
-<!-- DONE column -->
-    <div class="col-sm">
-          <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title alert-success">DONE</h5>
-                <small class="card-text">What you've done so far</small> 
-             </div>
-    
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item"></li>
-            </ul>
-              <div class="card-body">
-
-              </div>
-            </div>
-          </div>
-
-    </div>
-</div>
 </template>
 
 
@@ -109,18 +60,11 @@ export default {
           currentDate: '',
         },
       ],
-      listDoing: [
-        {
-          title: '',
-          details: '',
-          dueDate: '',
-          currentDate: '',
-        },
-      ],
     };
   },
   methods: {
     add() {
+      console.log('click??');
       const newItem = {
         title: this.title,
         details: this.details,
@@ -134,7 +78,6 @@ export default {
       this.details = '';
       this.show = false;
     },
-
     addToDoing(index) {
       const newItem = {
         title: this.title,
@@ -143,13 +86,9 @@ export default {
         currentDate: this.currentDate,
         status: 'doing',
       };
-      if ((this.title = '')) {
-        return alert('You must fill the title field');
-      }
       this.listDoing.push(newItem);
       this.lists.splice(index, 1);
     },
-
     addToDone(index) {
       console.log('click works');
     },
@@ -161,9 +100,5 @@ export default {
 <style scoped>
 .btn-warning {
   color: white;
-}
-
-button {
-  margin-top: 1vh;
 }
 </style>
