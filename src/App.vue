@@ -37,30 +37,9 @@ export default {
   },
   data() {
     return {
-      lists: [
-        {
-          title: '',
-          details: '',
-          dueDate: '',
-          currentDate: '',
-        },
-      ],
-      listDoing: [
-        {
-          title: '',
-          details: '',
-          dueDate: '',
-          currentDate: '',
-        },
-      ],
-      listDone: [
-        {
-          title: '',
-          details: '',
-          dueDate: '',
-          currentDate: '',
-        },
-      ],
+      lists: [],
+      listDoing: [],
+      listDone: [],
     };
   },
   methods: {

@@ -14,7 +14,7 @@
                  <p v-if="oneList.title">Title : {{oneList.title}}</p>
                 <p v-if="oneList.details">Details : {{oneList.details}}</p>
                 <p v-if="oneList.dueDate">Due Date : {{oneList.dueDate}}</p>
-                <p v-if="oneList.currentDate">Created on : {{currentDate}} </p>
+                <p v-if="oneList.currentDate">Created on : {{oneList.currentDate}} </p>
                 <button @click="addToDo(oneList)" class="btn btn-primary">To Do</button>
                 <button @click="addToDoing(oneList)" class="btn btn-warning">Doing</button>
                 <button @click="deleteItem(oneList)" class="btn btn-danger">Delete</button>
