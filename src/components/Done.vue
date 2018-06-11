@@ -10,21 +10,56 @@
              </div>
     
             <ul class="list-group list-group-flush">
-              <li class="list-group-item"></li>
-            </ul>
-              <div class="card-body">
+              <li v-if="oneList.status" v-for="(oneList, index) in listDone"  class="list-group-item">
+                 <p v-if="oneList.title">Title : {{oneList.title}}</p>
+                <p v-if="oneList.details">Details : {{oneList.details}}</p>
+                <p v-if="oneList.dueDate">Due Date : {{oneList.dueDate}}</p>
+                <p v-if="oneList.currentDate">Created on : {{currentDate}} </p>
+                <button @click="addToDo(oneList)" class="btn btn-primary">To Do</button>
+                <button @click="addToDoing(oneList)" class="btn btn-warning">Doing</button>
+                <button @click="deleteItem(oneList)" class="btn btn-danger">Delete</button>
 
-              </div>
+              </li>
+            </ul>
+              
             </div>
           </div>
 
-    </div>
-</div>
 </template>
 
 
 <script>
-export default {};
+export default {
+  props: ['lists', 'listDoing', 'listDone'],
+  methods: {
+    addToDo(index) {
+      const newItem = {
+        title: this.title,
+        details: this.details,
+        dueDate: this.dueDate,
+        currentDate: this.currentDate,
+        status: 'doing',
+      };
+      this.lists.push(index);
+      this.listDone.splice(index, 1);
+    },
+    addToDoing(index) {
+      const newItem = {
+        title: this.title,
+        details: this.details,
+        dueDate: this.dueDate,
+        currentDate: this.currentDate,
+        status: 'doing',
+      };
+      this.listDoing.push(index);
+      this.listDone.splice(index, 1);
+    },
+    deleteItem(index) {
+      confirm('are you sure you want to delete this item ?');
+      this.listDone.splice(index, 1);
+    },
+  },
+};
 </script>
 
 

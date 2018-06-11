@@ -9,14 +9,16 @@
             </div>
  
             <ul class="list-group list-group-flush">
-              <li v-for="(oneList, index) in lists" class="list-group-item">
+              <li v-if="oneList.status" v-for="(oneList, index) in lists" class="list-group-item">
                 <p v-if="oneList.title">Title : {{oneList.title}}</p>
                 <p v-if="oneList.details">Details : {{oneList.details}}</p>
                 <p v-if="oneList.dueDate">Due Date : {{oneList.dueDate}}</p>
                 <p v-if="oneList.currentDate">Created on : {{currentDate}} </p>
 
-                <button @click="addToDoing" v-if="oneList.status" class="btn btn-warning">Doing</button>
-                <button @click="addToDone" v-if="oneList.status" class="btn btn-success">Done</button>
+                <button @click="edit(oneList)"  class="btn btn-info">Edit</button>
+
+                <button @click="addToDoing(oneList)"  class="btn btn-warning">Doing</button>
+                <button @click="addToDone(oneList)"  class="btn btn-success">Done</button>
                 </li>
 
             </ul>
@@ -45,6 +47,7 @@
 
 <script>
 export default {
+  props: ['lists', 'listDoing', 'listDone'],
   data() {
     return {
       show: false,
@@ -52,19 +55,10 @@ export default {
         .toJSON()
         .slice(0, 10)
         .replace(/-/g, '/'),
-      lists: [
-        {
-          title: '',
-          details: '',
-          dueDate: '',
-          currentDate: '',
-        },
-      ],
     };
   },
   methods: {
     add() {
-      console.log('click??');
       const newItem = {
         title: this.title,
         details: this.details,
@@ -72,6 +66,7 @@ export default {
         currentDate: this.currentDate,
         status: 'toDo',
       };
+
       this.lists.push(newItem);
       this.title = '';
       this.dueDate = '';
@@ -86,12 +81,23 @@ export default {
         currentDate: this.currentDate,
         status: 'doing',
       };
-      this.listDoing.push(newItem);
+      this.listDoing.push(index);
       this.lists.splice(index, 1);
     },
     addToDone(index) {
-      console.log('click works');
+      const newItem = {
+        title: this.title,
+        details: this.details,
+        dueDate: this.dueDate,
+        currentDate: this.currentDate,
+        status: 'done',
+      };
+      this.listDone.push(index);
+      this.lists.splice(index, 1);
     },
+  },
+  edit() {
+    this.$store.state;
   },
 };
 </script>

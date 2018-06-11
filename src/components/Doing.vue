@@ -11,18 +11,17 @@
             </div>
  
         <ul class="list-group list-group-flush">
-           <li v-for="(oneList, index) in listDoing" class="list-group-item">
+           <li v-if="oneList.status" v-for="(oneList, index) in listDoing" class="list-group-item">
                 <p v-if="oneList.title">Title : {{oneList.title}}</p>
                 <p v-if="oneList.details">Details : {{oneList.details}}</p>
                 <p v-if="oneList.dueDate">Due Date : {{oneList.dueDate}}</p>
                 <p v-if="oneList.currentDate">Created on : {{currentDate}} </p>
-                <button @click="addToDoing" v-if="oneList.title" class="btn btn-warning">Doing</button>
-                <button v-if="oneList.title" class="btn btn-success">Done</button>
-                </li>
+                <button @click="addToDo(oneList)" class="btn btn-primary">To Do</button>
+                <button @click="addToDone(oneList)" class="btn btn-success">Done</button>
+            </li>
 
         </ul>
-          <div class="card-body">
-          </div>
+        
         </div>
       </div>
 
@@ -32,27 +31,38 @@
 
 <script>
 export default {
-  props: ['lists'],
+  props: ['lists', 'listDoing', 'listDone'],
 
   data() {
-    return {
-      listDoing: [
-        {
-          title: '',
-          details: '',
-          dueDate: '',
-          currentDate: '',
-        },
-      ],
-    };
+    return {};
   },
-  methods: {},
+  methods: {
+    addToDone(index) {
+      const newItem = {
+        title: this.title,
+        details: this.details,
+        dueDate: this.dueDate,
+        currentDate: this.currentDate,
+        status: 'done',
+      };
+      this.listDone.push(index);
+      this.listDoing.splice(index, 1);
+    },
+    addToDo(index) {
+      const newItem = {
+        title: this.title,
+        details: this.details,
+        dueDate: this.dueDate,
+        currentDate: this.currentDate,
+        status: 'doing',
+      };
+      this.lists.push(index);
+      this.listDoing.splice(index, 1);
+    },
+  },
 };
 </script>
 
 
 <style scoped>
-.btn-warning {
-  color: white;
-}
 </style>

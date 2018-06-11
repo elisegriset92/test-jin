@@ -1,20 +1,22 @@
 <template>
 <div class="container">
-  <h4>To Do List</h4>
+
+  <h4 class="pointer" data-toggle="tooltip" data-placement="left" title="New To Do" @click="refresh">To Do List</h4>
+
   
   <hr>
       <div>
           <div class="row">
           <transition name="slide" mode="out-in">
-              <app-to-do></app-to-do>
+              <app-to-do :lists="lists" :listDoing="listDoing" :listDone="listDone"></app-to-do>
           </transition>
 
           <transition name="slide" mode="out-in">
-              <app-doing></app-doing>
+              <app-doing :listDoing="listDoing" :listDone="listDone" :lists="lists" ></app-doing>
           </transition>
             
             <transition name="slide" mode="out-in">
-              <app-done></app-done>
+              <app-done :listDone="listDone" :listDoing="listDoing" :lists="lists"></app-done>
           </transition>
        </div>
       </div>
@@ -33,12 +35,54 @@ export default {
     appDoing: Doing,
     appDone: Done,
   },
+  data() {
+    return {
+      lists: [
+        {
+          title: '',
+          details: '',
+          dueDate: '',
+          currentDate: '',
+        },
+      ],
+      listDoing: [
+        {
+          title: '',
+          details: '',
+          dueDate: '',
+          currentDate: '',
+        },
+      ],
+      listDone: [
+        {
+          title: '',
+          details: '',
+          dueDate: '',
+          currentDate: '',
+        },
+      ],
+    };
+  },
+  methods: {
+    refresh() {
+      location.reload();
+    },
+  },
 };
 </script>
-
 <style>
 body {
   padding: 30px;
+  background-color: skyblue;
+}
+
+h4 {
+  color: white;
+  text-transform: uppercase;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 .slide-enter-active {
@@ -71,4 +115,3 @@ body {
   }
 }
 </style>
-
