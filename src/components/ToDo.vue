@@ -3,29 +3,41 @@
 <!-- TO DO column -->
        <div class="col-sm">
          <div class="card" style="width: 18rem;">
+                
             <div class="card-body">
              <h5 class="card-title alert-primary">TO DO</h5>
               <small class="card-text">What you have to do</small> 
+              
             </div>
- 
+                
             <ul class="list-group list-group-flush">
+             
               <li v-if="oneList.status" v-for="(oneList, index) in lists" class="list-group-item">
+              <template v-if="isEditing == true">
+              <app-edit isEditing :lists="oneList"></app-edit>
+            </template>
+             <template v-else>
+
                 <p v-if="oneList.title">Title : {{oneList.title}}</p>
                 <p v-if="oneList.details">Details : {{oneList.details}}</p>
                 <p v-if="oneList.dueDate">Due Date : {{oneList.dueDate}}</p>
                 <p v-if="oneList.currentDate">Created on : {{oneList.currentDate}} </p>
 
-                <button @click="edit(oneList)"  class="btn btn-info">Edit</button>
+                <button @click="isEditing = !isEditing"  class="btn btn-info">Edit</button>
 
                 <button @click="addToDoing(oneList)"  class="btn btn-warning">Doing</button>
                 <button @click="addToDone(oneList)"  class="btn btn-success">Done</button>
+             </template>
                 </li>
-
             </ul>
+
+
+
               <div class="card-body">
               <button @click="show =!show" class="form-control btn btn-primary">Add a Task</button>
                   <div v-show="show">
                     <br>
+                    
                     <form>
                     <input v-model="title" :id="title" type="text" class="form-control" placeholder="Title">
                     <br>
@@ -46,11 +58,17 @@
 
 
 <script>
+import Edit from './Edit.vue';
+
 export default {
+  components: {
+    'app-edit': Edit,
+  },
   props: ['lists', 'listDoing', 'listDone'],
   data() {
     return {
       show: false,
+      isEditing: false,
       currentDate: new Date()
         .toJSON()
         .slice(0, 10)
@@ -95,9 +113,6 @@ export default {
       this.listDone.push(index);
       this.lists.splice(index, 1);
     },
-  },
-  edit() {
-    this.$store.state;
   },
 };
 </script>
