@@ -1,15 +1,17 @@
-<template>
+<template :isEditing="isEditing">
    <form>
-    <input v-model="title" :id="title" type="text" class="form-control" :placeholder="newItem.title">
+    <input v-model="title" :id="title" ref="title" type="text" class="form-control" :placeholder="lists.title">
    <br>
-  <textarea v-model="details" :id="details" class="form-control" :placeholder="newItem.details"></textarea>
+  <textarea v-model="details" :id="details" ref="details" class="form-control" :placeholder="lists.details"></textarea>
   <p>Due Date :
-  <input v-model="dueDate" :id="dueDate" type="date" class="form-control" :placeholder="newItem.dueDate"></p>
+  <input v-model="dueDate" :id="dueDate" ref="due_date" type="date" class="form-control" :placeholder="lists.dueDate"></p>
   <button @click="save" class="btn btn-info">Edit</button>
-   <button @click="isEditing == !isEditing" class="btn btn-danger">Go Back</button>
+   <button @click="mutateEdit=!mutateEdit" class="btn btn-danger">Go Back</button>
   </form>
 
 </template>
+          
+
 
 <script>
 import ToDo from './ToDo.vue';
@@ -20,17 +22,16 @@ export default {
   },
   props: ['lists', 'isEditing'],
   data() {
-    return {
-      newItem: {
-        title: this.lists.title,
-        details: this.lists.details,
-        dueDate: this.lists.dueDate.replace(/-/g, '/'),
-      },
-    };
+    mutateEdit: JSON.parse(this.isEditing);
   },
+
   methods: {
     save() {
-      console.log('save', this.newItem);
+      this.lists.title = this.$refs['title'].value;
+      this.lists.details = this.$refs['details'].value;
+      this.lists.dueDate = this.$refs['due_date'].value;
+      this.mutateEdit = !this.mutateEdit;
+      console.log(this.mutateEdit);
     },
   },
 };

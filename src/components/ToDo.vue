@@ -12,21 +12,22 @@
                 
             <ul class="list-group list-group-flush">
              
-              <li v-if="oneList.status" v-for="(oneList, index) in lists" class="list-group-item">
-              <template v-if="isEditing == true">
-              <app-edit isEditing :lists="oneList"></app-edit>
-            </template>
-             <template v-else>
+              <li v-if="oneList.title" v-for="(oneList, index) in lists" class="list-group-item">
+              <template v-if="isEditing == false">
 
-                <p v-if="oneList.title">Title : {{oneList.title}}</p>
+                 <p v-if="oneList.title">Title : {{oneList.title}}</p>
                 <p v-if="oneList.details">Details : {{oneList.details}}</p>
                 <p v-if="oneList.dueDate">Due Date : {{oneList.dueDate}}</p>
                 <p v-if="oneList.currentDate">Created on : {{oneList.currentDate}} </p>
+                <p> {{oneList.id}} </p>
 
                 <button @click="isEditing = !isEditing"  class="btn btn-info">Edit</button>
 
                 <button @click="addToDoing(oneList)"  class="btn btn-warning">Doing</button>
                 <button @click="addToDone(oneList)"  class="btn btn-success">Done</button>
+            </template>
+             <template v-else>
+               <app-edit :lists="oneList"></app-edit>
              </template>
                 </li>
             </ul>
@@ -82,7 +83,6 @@ export default {
         details: this.details,
         dueDate: this.dueDate.replace(/-/g, '/'),
         currentDate: this.currentDate,
-        status: 'toDo',
       };
 
       this.lists.push(newItem);
@@ -97,7 +97,6 @@ export default {
         details: this.details,
         dueDate: this.dueDate,
         currentDate: this.currentDate,
-        status: 'doing',
       };
       this.listDoing.push(index);
       this.lists.splice(index, 1);
@@ -108,7 +107,6 @@ export default {
         details: this.details,
         dueDate: this.dueDate,
         currentDate: this.currentDate,
-        status: 'done',
       };
       this.listDone.push(index);
       this.lists.splice(index, 1);

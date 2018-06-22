@@ -11,7 +11,7 @@
             </div>
  
         <ul class="list-group list-group-flush">
-           <li v-if="oneList.status" v-for="(oneList, index) in listDoing" class="list-group-item">
+           <li v-if="oneList.title" v-for="(oneList, index) in listDoing" class="list-group-item">
                 <p v-if="oneList.title">Title : {{oneList.title}}</p>
                 <p v-if="oneList.details">Details : {{oneList.details}}</p>
                 <p v-if="oneList.dueDate">Due Date : {{oneList.dueDate}}</p>
@@ -43,7 +43,6 @@ export default {
         details: this.details,
         dueDate: this.dueDate,
         currentDate: this.currentDate,
-        status: 'done',
       };
       this.listDone.push(index);
       this.listDoing.splice(index, 1);
@@ -54,7 +53,6 @@ export default {
         details: this.details,
         dueDate: this.dueDate,
         currentDate: this.currentDate,
-        status: 'doing',
       };
       this.lists.push(index);
       this.listDoing.splice(index, 1);
